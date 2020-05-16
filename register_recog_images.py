@@ -7,20 +7,24 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random
 
-from feature_extraction import FaceFeatures
+from feature_extraction import FaceFeatures, get_detector
 from inference import inference
 
 
-IMG_SIZE = (256, 256)
+#IMG_SIZE = (256, 256)
+IMG_SIZE = (150, 150)
+
 people = {}
 
 folders = os.listdir("recog_images")
 
-pred = FaceFeatures()
+#pred = FaceFeatures()
+detector = get_detector()
 
-def transform_image(image, inference=False):
+
+def transform_image(image, resize=False):
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    if not inference:
+    if resize:
         image = cv2.resize(image, IMG_SIZE)
     return image
 
@@ -35,7 +39,7 @@ for name in folders:
         print(image_path)
 
         image = cv2.imread(image_path)
-        img = transform_image(image, inference=True)
+        img = transform_image(image, resize=False)
 
         points = inference(img)
         points = list(points)
@@ -64,14 +68,19 @@ for name in folders:
         plt.show()
         """
 
-        cropped_image = transform_image(cropped_image, inference=False)
-        cropped_image = np.expand_dims(cropped_image, 0)
-        cropped_image = np.rollaxis(cropped_image, 3, 1)
+        cropped_image = transform_image(cropped_image, resize=True)
+        #cropped_image = np.expand_dims(cropped_image, 0)
+        #cropped_image = np.rollaxis(cropped_image, 2, 1)
 
         cropped_image_torch = torch.from_numpy(cropped_image).to(torch.float32)
 
+        """
         features = pred(cropped_image_torch)
-        #features = features.detach().numpy()
+        features = features.detach().numpy()
+        """
+
+        features = detector.compute_face_descriptor(cropped_image)
+        features = np.array(features)
         
         image_representations.append(features)
     
