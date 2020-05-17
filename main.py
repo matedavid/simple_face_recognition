@@ -99,23 +99,18 @@ def main(image_path):
     for ppl in people:
         people_features = people[ppl]
         for img_f in people_features:
-            #d1 = img_f.detach().numpy()
-            diff = compare(features, people_features)
+            diff = compare(features, img_f)
 
             if diff < min_difference:
                 min_difference = diff
                 min_person = ppl
-    """
-            ppl_diff += diff 
 
-        ppl_diff /= len(people_features)
+    if min_difference > 1.:
+        print("No faces recognized")
+        return 
 
-        if ppl_diff < min_difference:
-            min_difference = ppl_diff
-            min_person = ppl
-    """
-    show_image_and_identification(image_path, points, min_person)
     print(min_person, min_difference)
+    show_image_and_identification(image_path, points, min_person)
 
 
 if __name__ == "__main__":
