@@ -9,7 +9,7 @@ from inference import inference
 from feature_extraction import get_detector
 
 
-pred = FaceFeatures()
+# pred = FaceFeatures()
 detector = get_detector()
 
 #IMG_SIZE = (256, 256)
@@ -21,6 +21,35 @@ def transform_image(image, resize=False):
         image = cv2.resize(image, IMG_SIZE)
     return image
 
+
+def area_of_square(square):
+    return (square[2] - square[0])**2
+
+
+def check_square_inside(square1, square2):
+    # TODO - Look for better way to approach this 
+    min_area = min(area_of_square(square1), area_of_square(square2))
+
+    little_square = square1 if min_area == area_of_square(square1) else square2
+    big_square = square1 if area_of_square(little_square) == area_of_square(square2) else square2
+
+    top, bottom = False, False
+
+    if little_square[0] >= big_square[0] and little_square[0] <= big_square[2] and little_square[1] >= big_square[1] and little_square[1] <= big_square[3]:
+        print("Top left inside")
+        top = True
+        if little_square[2] >= big_square[0] and little_square[2] <= big_square[2] and little_square[3] >= big_square[1] and little_square[3] <= big_square[3]:
+            print("Bottom right inside")
+            bottom = True 
+
+    if top and bottom:
+        return True, 1 if area_of_square(little_square) == area_of_square(square1) else 0
+    else:
+        return False, -1
+
+def clean_IoU(image_features):
+    pass
+
 def get_features(image_path):
     image = cv2.imread(image_path)
     img = transform_image(image, resize=False)
@@ -31,6 +60,20 @@ def get_features(image_path):
     image_features = []
 
     for pt in points:
+        c = False
+        if len(image_features) != 0:
+            for ixd, point_c in enumerate(image_features):
+                point = point_c[1]
+                inside, keep = check_square_inside(pt, point)
+                if inside:
+                    if keep == 1:
+                        del image_features[ixd]
+                    else:
+                        print()
+                        c = True
+        if c:
+            continue
+
         x1, y1, x2, y2 = pt
 
         x1 = int(x1)
