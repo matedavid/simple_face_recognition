@@ -4,10 +4,10 @@ import torchvision.models as models
 
 import dlib
 
+"""
 alexnet = models.alexnet(pretrained=True)
 vgg = models.vgg16(pretrained=True)
 
-"""
 class FaceFeatures(torch.nn.Module):
     def __init__(self):
         super(FaceFeatures, self).__init__()
@@ -22,8 +22,6 @@ class FaceFeatures(torch.nn.Module):
         #x = self.classifier(x)
         return x
 
-"""
-
 class FaceFeatures(torch.nn.Module):
     def __init__(self):
         super(FaceFeatures, self).__init__()
@@ -32,6 +30,7 @@ class FaceFeatures(torch.nn.Module):
     def forward(self, x):
         x = self.features(x)
         return x
+"""
 
 # Code work of: http://dlib.net/face_recognition.py.html
 def get_detector():

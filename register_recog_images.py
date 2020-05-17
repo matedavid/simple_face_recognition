@@ -7,7 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random
 
-from feature_extraction import FaceFeatures, get_detector
+from feature_extraction import get_detector
 from inference import inference
 
 
@@ -46,7 +46,6 @@ for name in folders:
 
         if len(points) != 1:
             print(f"Image has {len(points)} faces, choosing one randomly")
-            # TODO - Implement random choice  
             pts = points[0]
         elif len(points) == 0:
             print("No faces found...")

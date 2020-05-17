@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 import torch 
 from inference import inference
-from feature_extraction import FaceFeatures, get_detector
+from feature_extraction import get_detector
 
 
 pred = FaceFeatures()
@@ -28,16 +28,6 @@ def get_features(image_path):
     points = inference(img)
     points = list(points)
 
-
-    """
-    if len(points) != 1:
-        print(f"Image has {len(points)} faces, choosing one randomly")
-        ridx = np.random.randint(0, len(points))
-        pts = points[ridx]
-    else:
-        pts = points[0]
-    """
-
     image_features = []
 
     for pt in points:
@@ -51,17 +41,6 @@ def get_features(image_path):
         cropped_image = img[y1:y1+h, x1:x1+w]
         cropped_image = transform_image(cropped_image, resize=True)
 
-        #cropped_image = np.expand_dims(cropped_image, 0)
-        #cropped_image = np.rollaxis(cropped_image, 3, 1)
-
-        #cropped_image_torch = torch.from_numpy(cropped_image).to(torch.float32)
-
-        """
-        features = pred(cropped_image_torch)
-        features = features.detach().numpy()
-        #return np.array(features), points
-        """
-
         features = detector.compute_face_descriptor(cropped_image)
         features = np.array(features)
 
@@ -70,13 +49,6 @@ def get_features(image_path):
     return image_features
     
 def compare(features, target_features):
-    # ‖f(x1)−f(x2)‖_2^2
-    """
-    d1 = np.linalg.norm(features[0])
-    d2 = np.linalg.norm(target_features[0])
-    """
-
-    #return np.linalg.norm(features[0] - target_features[0])
     return np.linalg.norm(features - target_features)
 
 def show_image_and_identification(image_path, recognition_results):
@@ -121,9 +93,10 @@ def main(image_path):
                     min_difference = diff
                     min_person = ppl
 
-        if min_difference > 1.:
+        if min_difference > 0.6:  # Not sure if this number is good 
             print("No faces recognized")
-            min_person = "Not recognized"
+            #min_person = "Not recognized"
+            continue
 
         print(f"Found: {min_person} {min_difference}")
         recognition_results.append([min_person, points])
