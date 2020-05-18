@@ -1,2 +1,2 @@
-Simple Face detection and recognition program
+Simple Face detection and recognition algorithm
 --- 

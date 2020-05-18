@@ -8,11 +8,8 @@ import torch
 from inference import inference
 from feature_extraction import get_detector
 
-
-# pred = FaceFeatures()
 detector = get_detector()
 
-#IMG_SIZE = (256, 256)
 IMG_SIZE = (150, 150)
 
 def transform_image(image, resize=False):
@@ -20,11 +17,6 @@ def transform_image(image, resize=False):
     if resize:
         image = cv2.resize(image, IMG_SIZE)
     return image
-
-"""
-def area_of_square(square):
-    return (square[2] - square[0])**2
-"""
 
 class Square(object):
     def __init__(self, points):
@@ -63,7 +55,6 @@ def check_square_inside(s1, s2):
     big_square = square1 if little_square == square2 else square2
 
     if big_square.square_inside(little_square):
-        #return True, 1 if area_of_square(little_square) == area_of_square(square1) else 0
         return True, 1 if little_square == square1 else 0
     else:
         return False, -1
@@ -89,9 +80,9 @@ def get_features(image_path):
                     if keep == 1:
                         del image_features[ixd]
                     else:
-                        print("Found square inside another, removing")
                         c = True
         if c:
+            print("Found square inside another, removing...")
             continue
 
         x1, y1, x2, y2 = pt
