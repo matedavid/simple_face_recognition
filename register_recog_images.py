@@ -27,5 +27,5 @@ def register_recog_images():
 
 if __name__ == "__main__":
     people = register_recog_images()
-    with open("people_3dim_prueba.pkl", "wb") as f:
+    with open("people_3dim.pkl", "wb") as f:
         pkl.dump(people, f)
