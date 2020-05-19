@@ -30,7 +30,7 @@ def show_image_and_identification(image_path, recognition_results):
 def main(image_path):
     image_features = get_features(image_path)
 
-    with open("people_3dim_prueba.pkl", "rb") as f:
+    with open("people_3dim.pkl", "rb") as f:
         people = pkl.load(f)
 
     print("Possible people:", list(people.keys()))

@@ -32,21 +32,18 @@ def load_predictor(model_name):
     
     return DefaultPredictor(cfg)
 
+predictor = load_predictor("model_final_1.pth")
 
 def draw_image_with_bbox(img, points):
     for box in points:
         x,y,x2,y2 = box
-        #rect = patches.Rectangle((x,y),(x2,y2),linewidth=1,edgecolor='r',facecolor='none')
         cv2.rectangle(img, (x, y), (x2, y2), (0, 255, 0), 10)
-    #cv2.imshow("Image", img)
+
     plt.imshow(img)
     plt.show()
 
 
 def inference(image):
-    predictor = load_predictor("model_final_1.pth")
-    # print(f"Doing inference on image: {image_path}")
-
     outputs = predictor(image)
     points = outputs["instances"].pred_boxes
     return points
