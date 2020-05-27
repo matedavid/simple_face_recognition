@@ -39,3 +39,10 @@ python main.py path/to/image
 ```
 
 Then, in some time, a image with the faces encountered and the person recognized will appear. 
+
+
+## Samples: 
+###### recog_images structure
+![Recog images structure](https://github.com/matedavid/simple_face_recognition/blob/master/.github/Recog_images%20structure_example_1.png)
+###### Results example
+![Algorithm in work example](https://github.com/matedavid/simple_face_recognition/blob/master/.github/Result_1_elon-jack.png)
