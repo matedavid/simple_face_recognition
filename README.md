@@ -1,5 +1,5 @@
 Simple Face detection and recognition algorithm
---- 
+---
 
 ## Resources used:
 * detectron2: https://detectron2.readthedocs.io/
@@ -10,7 +10,7 @@ Unfortunately, the detectron2 model used to recognize images is too big for gith
 
 #### Prepare the models
 To train the model, you need to do:
-1. Run ```preprocess_data.ipynb```, which will preprocess the image data and prepare it in a pickle file
+1. Run ```preprocess_data.ipynb```, which will preprocess the image data and prepare it in a pickle file for training. 
 2. Run ```train.ipynb```, which has all the presets established to imitate my results, so no changes are needed. 
 
 Then, the final model should be saved in a folder called `models`, which should be saved at the level of the main dir. 
@@ -33,7 +33,7 @@ When you have created all these person models, you can run ```register_recog_ima
 
 #### Run the model 
 When the model is set up and the faces registered, the model can be runned to recognize faces on your own images. 
-For that, you only need to run 
+For that, you only need to run:
 ```bash
 python main.py path/to/image
 ```
