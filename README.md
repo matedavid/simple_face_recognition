@@ -6,19 +6,19 @@ Simple Face detection and recognition algorithm
 * dlib: http://dlib.net/face_recognition.py.html (davisking on Github)
 
 ## How to use: 
-Unfortunately, the detectron2 model used to recognize images is too big for github, so I haven't been able to include it in the repo. That's why the model should be trained individually in order to have it. 
+Unfortunately, the detectron2 model used to find faces in an image is too big for github, so it can't be included in the repo. That's why the model has to be individually in order to have it. 
 
 #### Prepare the models
 To train the model, you need to do:
-1. Run ```preprocess_data.ipynb```, which will preprocess the image data and prepare it in a pickle file for training. 
-2. Run ```train.ipynb```, which has all the presets established to imitate my results, so no changes are needed. 
+1. Run ```preprocess_data.ipynb``` (in a jupyter notebook), which will preprocess the image data and prepare it in a pickle file for training. 
+2. Run ```train.ipynb``` (in a jupyter notebook). It has all the presets established to imitate my results, so no changes are needed.
 
-Then, the final model should be saved in a folder called `models`, which should be saved at the level of the main dir. 
-Also, you need to download the dlib model for feature extraction of the faces, from this [link](http://dlib.net/files/dlib_face_recognition_resnet_model_v1.dat.bz2). The dlib model should also be saved in the same `models` folder. This model is compressed in a .bz2 format. 
+Then, the final model should be saved in a folder called `models/`. 
+Also, you need to download the **dlib** model for feature extraction of the faces, from this [link](http://dlib.net/files/dlib_face_recognition_resnet_model_v1.dat.bz2). The dlib model should also be saved in the same `models/` folder. This file is compressed in a .bz2 format, so remember to decompress it before. 
 
 #### Register faces
-When the models is set up, you now need to register the faces for the model to recognize.
-To do that, you have to create a folder called `recog_images` in the main dir. A folder structure should be created as the following:
+When the models are set up, you need to register the faces that you want to model to recognize. 
+To do that, you have to create a folder called `recog_images/`. A folder structure should be created as the following:
 ```json
 -- Recog images (folder)
     - Person 1 name (folder)
@@ -28,17 +28,17 @@ To do that, you have to create a folder called `recog_images` in the main dir. A
         + Image 2 (image)
 ```
 
-You can add multiple images for each person, but it is not needed. 
-When you have created all these person models, you can run ```register_recog_images.py``` in order to create a vectorized representation of the images and save them in a file.
+You can add multiple images for each person, but it's not needed. 
+When you added all the persons and corresponding images, you can run ```register_recog_images.py``` in order to create a vectorized representation of the images and save them to a file. 
 
 #### Run the model 
-When the model is set up and the faces registered, the model can be runned to recognize faces on your own images. 
+When all the previous requirements are met, you can now use the algorithm on your own images. 
 For that, you only need to run:
 ```bash
-python main.py path/to/image
+python main.py path/to/your_own_image
 ```
 
-Then, in some time, a image with the faces encountered and the person recognized will appear. 
+Then, an image with the faces detected and recognized should appear. 
 
 
 ## Samples: 
