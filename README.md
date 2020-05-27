@@ -42,7 +42,7 @@ Then, in some time, a image with the faces encountered and the person recognized
 
 
 ## Samples: 
-###### recog_images structure
+##### models/ and recog_images/ structure
 ![Recog images structure](https://github.com/matedavid/simple_face_recognition/blob/master/.github/Recog_images%20structure_example_1.png)
-###### Results example
+##### Results example
 ![Algorithm in work example](https://github.com/matedavid/simple_face_recognition/blob/master/.github/Result_1_elon-jack.png)
